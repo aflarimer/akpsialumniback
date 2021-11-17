@@ -29,8 +29,10 @@ namespace api.Data
                     Employed = item.employed, 
                     Position = item.position,
                     Company = item.company, 
+                    LinkedIn = item.linkedIn,
                     City = item.city, 
-                    Email = item.email};
+                    Email = item.email,
+                    Phone = item.phone};
                 myPeople.Add(temp);
                 
             }
@@ -44,8 +46,8 @@ namespace api.Data
             //Console.WriteLine("made it to the insert"); for testing
             
             var values = GetValues(person);
-            string sql = "insert into person (first_name, last_name, major, minor, pledge_class, graduating_semester, grad_school, grad_school_name, employed, position, company, city, email) ";
-            sql+= "values(@firstName, @lastName, @major, @minor, @pledgeClass, @graduatingSemester, @gradSchool, @gradSchoolName, @employed, @position, @company, @city, @email)";
+            string sql = "insert into person (first_name, last_name, major, minor, pledge_class, graduating_semester, grad_school, grad_school_name, employed, position, company, city, linkedIn, email, phone) ";
+            sql+= "values(@firstName, @lastName, @major, @minor, @pledgeClass, @graduatingSemester, @gradSchool, @gradSchoolName, @employed, @position, @company, @city, @linkedIn, @email, @phone)";
             db.Open();
             db.Insert(sql, values);
             db.Close();
@@ -55,7 +57,7 @@ namespace api.Data
             var values = GetValues(person);
             string sql = "update person set first_name=@firstName, last_name=@lastName, major=@major,";
             sql += "minor=@minor, pledge_class=@pledgeClass, graduating_semester=@graduatingSemester, grad_school=@gradSchool,";
-            sql+= "grad_school_name=@gradSchoolName, employed=@employed, position=@position, company=@company, city=@city, email=@email ";
+            sql+= "grad_school_name=@gradSchoolName, employed=@employed, position=@position, company=@company, city=@city, linkedIn=@linkedIn, email=@email, phone=@phone";
             sql+= "where id = @id";
             db.Open();
             db.Update(sql, values);
@@ -77,7 +79,9 @@ namespace api.Data
                  {"@position", person.Position},
                  {"@company", person.Company},
                  {"@city", person.City},
-                 {"@email", person.Email}
+                 {"@linkedIn", person.LinkedIn},
+                 {"@email", person.Email},
+                 {"@phone", person.Phone}
              };
              return values;
 

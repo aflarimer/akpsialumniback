@@ -17,7 +17,9 @@ namespace api.Model
         public string Position {get; set;}
         public string Company {get; set;}
         public string City {get; set;}
+        public string LinkedIn {get; set;}
         public string Email {get; set;}
+        public string Phone {get; set;}
 
         public IPersonDataHandler DataHandler {get; set;}
         
