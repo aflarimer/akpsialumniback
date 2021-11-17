@@ -15,17 +15,17 @@ namespace api.Data
         public MySqlConnection Conn {get; set;}
 
         public Database() {
-            string server = "x8autxobia7sgh74.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-            string database = "qafvzj62ztj61beu";
-            string port = "3306";
-            string userName = "e11ipnzrdqtjty3z";
-            string password = "so2fjevwl94pzqgh";
+            // string server = "x8autxobia7sgh74.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+            // string database = "qafvzj62ztj61beu";
+            // string port = "3306";
+            // string userName = "e11ipnzrdqtjty3z";
+            // string password = "so2fjevwl94pzqgh";
 
-            // string server = Environment.GetEnvironmentVariable("akpsi_server");
-            // string database = Environment.GetEnvironmentVariable("akpsi_database");
-            // string port = Environment.GetEnvironmentVariable("akpsi_port");
-            // string userName = Environment.GetEnvironmentVariable("akpsi_userName");
-            // string password = Environment.GetEnvironmentVariable("akpsi_password");
+            string server = Environment.GetEnvironmentVariable("akpsi_server");
+            string database = Environment.GetEnvironmentVariable("akpsi_database");
+            string port = Environment.GetEnvironmentVariable("akpsi_port");
+            string userName = Environment.GetEnvironmentVariable("akpsi_userName");
+            string password = Environment.GetEnvironmentVariable("akpsi_password");
 
             this.ConnString = $@"server = {server}; user = {userName}; database = {database}; port = {port}; password = {password};";
             this.Conn = new MySqlConnection(this.ConnString);
