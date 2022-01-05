@@ -20,6 +20,8 @@ namespace api.Model
         public string LinkedIn {get; set;}
         public string Email {get; set;}
         public string Phone {get; set;}
+        public string Latitude {get; set;} //
+        public string Longitude {get; set;} //
 
         public IPersonDataHandler DataHandler {get; set;}
         

@@ -13,7 +13,7 @@ namespace api.Data
         }
          public List<Person> Select() {
             List<Person> myPeople = new List<Person>();
-            string sql = "select * from person";
+            string sql = "SELECT p.id, first_name, last_name, major, minor, pledge_class, graduating_semester, grad_school, grad_school_name, employed, position, company, city, email, phone, linkedIn, lat, lng FROM cities c join person p where c.name = p.city";
             db.Open();
             List<ExpandoObject> results = db.Select(sql);
             foreach(dynamic item in results) {
@@ -32,7 +32,9 @@ namespace api.Data
                     LinkedIn = item.linkedIn,
                     City = item.city, 
                     Email = item.email,
-                    Phone = item.phone};
+                    Phone = item.phone,
+                    Latitude = item.lat, //
+                    Longitude = item.lng}; //
                 myPeople.Add(temp);
                 
             }
