@@ -13,7 +13,7 @@ namespace api.Data
         }
          public List<Person> Select() {
             List<Person> myPeople = new List<Person>();
-            string sql = "SELECT * FROM combinedtable order by last_name asc";            
+            string sql = "select p.id, p.first_name, p.last_name, p.major, p.minor, p.pledge_class, p.graduating_semester, p.grad_school, p.grad_school_name, p.employed, p.position, p.company, p.city, p.email, p.phone, p.linkedIn, ifnull(c.lat,'') as lat, ifnull(c.lng, '') as lng from person p left join cities c on c.name = p.city order by p.last_name asc;";            
             db.Open();
             List<ExpandoObject> results = db.Select(sql);
             foreach(dynamic item in results) {
