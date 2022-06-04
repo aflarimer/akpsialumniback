@@ -53,8 +53,9 @@ namespace api.Controllers
         // DELETE: api/Person/5
         [EnableCors("OpenPolicy")]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(int id, [FromBody] Person value)
         {
+            value.DataHandler.Delete(value);
         }
     }
 }

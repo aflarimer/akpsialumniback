@@ -42,7 +42,11 @@ namespace api.Data
             return myPeople;
          }
          public void Delete(Person person){
-
+            var values = GetValues(person);
+            string sql = "delete from person where id = @id";
+            db.Open();
+            db.Delete(sql, values);
+            db.Close();
          }
          public void Insert(Person person){
             //Console.WriteLine("made it to the insert"); for testing
@@ -55,15 +59,52 @@ namespace api.Data
             db.Close();
          }
          public void Update(Person person){
-            System.Console.WriteLine("made it to the update" + person.FirstName);
+            string sql = "UPDATE person SET ";
             var values = GetValues(person);
-            string sql = "update person set first_name=@firstName, last_name=@lastName, major=@major,";
-            sql += "minor=@minor, pledge_class=@pledgeClass, graduating_semester=@graduatingSemester, grad_school=@gradSchool,";
-            sql+= "grad_school_name=@gradSchoolName, employed=@employed, position=@position, company=@company, city=@city, linkedIn=@linkedIn, email=@email, phone=@phone";
-            sql+= "where id = @id";
+            foreach(var p in values) {
+                if (p.Key != "ID" && p.Value != null) {
+                    switch(p.Key) {
+                        case "@firstName":
+                            sql += "first_name = @firstName,";
+                            break;
+                        case "@lastName":
+                            sql += "last_name = @lastName,";
+                            break;
+                        case "@pledgeClass":
+                            sql += "pledge_class = @pledgeClass,";
+                            break;
+                        case "@major":
+                            sql += "major = @major,";
+                            break;
+                        case "@linkedIn":
+                            sql += "linkedIn = @linkedIn,";
+                            break;
+                        case "@email":
+                            sql += "email = @email,";
+                            break;
+                        case "@city":
+                            sql += "city = @city,";
+                            break;
+                        case "@company":
+                            sql += "company = @company,";
+                            break;
+                    }
+                }
+            }
+            sql = sql.Remove(sql.Length - 1, 1);
+            sql += " WHERE id = @id";
             db.Open();
             db.Update(sql, values);
             db.Close();
+            // System.Console.WriteLine("made it to the update" + person.FirstName);
+            // var values = GetValues(person);
+            // string sql = "update person set first_name=@firstName, last_name=@lastName, major=@major,";
+            // sql += "minor=@minor, pledge_class=@pledgeClass, graduating_semester=@graduatingSemester, grad_school=@gradSchool,";
+            // sql+= "grad_school_name=@gradSchoolName, employed=@employed, position=@position, company=@company, city=@city, linkedIn=@linkedIn, email=@email, phone=@phone";
+            // sql+= "where id = @id";
+            // db.Open();
+            // db.Update(sql, values);
+            // db.Close();
          }
 
          public Dictionary<string,object> GetValues(Person person) {
